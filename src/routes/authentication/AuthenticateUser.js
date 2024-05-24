@@ -6,6 +6,7 @@ import { Authenticatesignin } from "../../middlewares/authmiddleware/Authsignin.
 import { verifySignin } from "../../utilities/HandleDbOperations.js";
 import { Logoutuser } from "../../middlewares/authmiddleware/Logoutauth.js";
 import { addUser } from "../../utilities/HandleDbOperations.js";
+import { logger } from "../../utilities/LoggerFile.js";
 import {
   GenerateToken,
   GenerateCSRFToken,
@@ -18,7 +19,7 @@ signupRoute.post("/signup", AuthenticateInput, async (req, res) => {
     const response = await addUser(req.body.data, req, res);
     if (response.success) {
       const csrftoken = GenerateCSRFToken();
-      console.log("thsi is the csrf ", csrftoken, req.session);
+
       req.session.csrf = csrftoken;
       res.cookie("userjwttoken", response.token, {
         expiry: COOKIE_EXPIRATION,
@@ -37,7 +38,7 @@ signupRoute.post("/signup", AuthenticateInput, async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("Error ", err);
+    logger.error("Error occurred", err);
     res.status(500).send({
       message: "An Error occured during signup",
       data: null,
@@ -50,7 +51,7 @@ signupRoute.post("/signin", Authenticatesignin, async (req, res) => {
   try {
     const userdata = req.body.data;
     const userExists = await verifySignin(userdata);
-    console.log("here sssss", userExists);
+
     if (userExists.exist) {
       const userInfo = {
         name: userExists.userdata.name,
@@ -63,11 +64,6 @@ signupRoute.post("/signin", Authenticatesignin, async (req, res) => {
 
       //incase if there are more functionalities that need session token then use this
       req.session.csrf = csrftoken;
-      console.log(
-        "nnnnnnnnnnnnnnnnnthis is the req.session ",
-        req.session.csrf
-      );
-
       res.cookie("userjwttoken", token, {
         expiry: COOKIE_EXPIRATION,
       });
@@ -83,6 +79,7 @@ signupRoute.post("/signin", Authenticatesignin, async (req, res) => {
         .send({ message: "User is Unauthorized", allowed: false, data: null });
     }
   } catch (err) {
+    logger.error("Error occurred", err);
     res
       .status(500)
       .send({ message: "Internal Server Error", allowed: false, data: null });
@@ -100,6 +97,7 @@ signupRoute.post("/logout", Logoutuser, (req, res) => {
     });
     res.status(200).send("Logged Out Successfully");
   } catch (err) {
+    logger.error("Error occurred", err);
     res.send(500).send("Internal Server Error");
   }
 });

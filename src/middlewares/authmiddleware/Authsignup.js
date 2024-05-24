@@ -6,12 +6,8 @@ import {
   PASSWORD_LEN,
   PASSWORD_MIN_LEN,
   PASSWORD_REX,
-  COOKIE_EXPIRATION,
 } from "../../constants/AuthValidation.js";
-import {
-  GenerateToken,
-  VerifyToken,
-} from "../../utilities/GeneratejwtToken.js";
+import { VerifyToken } from "../../utilities/GeneratejwtToken.js";
 import { checkIfUserExists } from "../../utilities/HandleDbOperations.js";
 
 const AuthenticateInput = async (req, res, next) => {
@@ -20,7 +16,6 @@ const AuthenticateInput = async (req, res, next) => {
     if (cookievalue) {
       const data = await VerifyToken(cookievalue);
 
-      console.log("data is ", data);
       if (data.Authorization) {
         return res
           .status(200)
@@ -44,14 +39,13 @@ const AuthenticateInput = async (req, res, next) => {
         ? res.status(409).send("User Already Exists with Given Email Id")
         : next();
     } else {
-      console.log("errorlll");
-
       res.status(400).json({
         error: "Constraints not satisfied",
       });
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" + error });
+    logger.error("Error occurred", error);
+    res.status(500).json({ error: "Internal Server Error " + error });
   }
 };
 export { AuthenticateInput };

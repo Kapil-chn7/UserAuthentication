@@ -1,2 +1,18 @@
 {"level":"info","message":"Starting Server"}
 {"level":"info","message":"Starting Server"}
+2024-05-24T16:40:03.370Z [INFO] - Starting Server
+2024-05-24T16:41:04.092Z [INFO] - Starting Server
+info: Starting Server {"timestamp":"2024-05-24T16:44:08.927Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:48:27.642Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:49:30.449Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:50:41.279Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:51:06.392Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:51:28.004Z"}
+error: Error occurred {"timestamp":"2024-05-24T16:51:28.861Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:51:47.384Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:52:09.384Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:53:16.188Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:54:21.391Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:54:48.509Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:55:25.094Z"}
+info: Starting Server {"timestamp":"2024-05-24T16:55:46.537Z"}

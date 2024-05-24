@@ -6,7 +6,6 @@ import "dotenv/config";
 const GenerateToken = (data) => {
   try {
     return new Promise((resolve, reject) => {
-      console.log("thsi si the data sign ", data);
       jwt.sign(
         data,
         process.env.JWT_PRIVATE_KEY,
@@ -20,6 +19,7 @@ const GenerateToken = (data) => {
       );
     });
   } catch (e) {
+    logger.error("Error occurred", e);
     return { error: "Internal Server Error" };
   }
 };

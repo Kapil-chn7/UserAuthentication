@@ -5,28 +5,18 @@ import {
   USERNAME_MIN_LEN,
   PASSWORD_LEN,
   PASSWORD_MIN_LEN,
-  PASSWORD_REX,
-  COOKIE_EXPIRATION,
 } from "../../constants/AuthValidation.js";
 import {
   GenerateToken,
   VerifyToken,
 } from "../../utilities/GeneratejwtToken.js";
-import { verifySignin } from "../../utilities/HandleDbOperations.js";
 
 const Authenticatesignin = async (req, res, next) => {
   try {
-    console.log(
-      "Insdie Auth Signing.js",
-      req.cookies.userjwttoken,
-      req.body.data
-    );
     let cookievalue = req.cookies.userjwttoken;
     if (cookievalue) {
-      console.log("here cooo", cookievalue);
       const data = await VerifyToken(cookievalue);
 
-      console.log("data is ", data);
       if (data.Authorization) {
         return res
           .status(200)
@@ -52,6 +42,7 @@ const Authenticatesignin = async (req, res, next) => {
       });
     }
   } catch (error) {
+    logger.error("Error occurred", error);
     res.status(500).json({ error: "Internal Server Error" + error });
   }
 };

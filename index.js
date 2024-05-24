@@ -4,14 +4,16 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import { rateLimit } from "express-rate-limit";
-import { logger } from "./src/utilities/LoggerFile.js";
-//env variable import
-import "dotenv/config";
-//import routes
-import { signupRoute } from "./src/routes/authentication/AuthenticateUser.js";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import helmet from "helmet";
+//env variable import
+import "dotenv/config";
+//import utilities
+import { logger } from "./src/utilities/LoggerFile.js";
+//import routes
+import { signupRoute } from "./src/routes/authentication/AuthenticateUser.js";
+
 const app = express();
 const PORT = process.env.DEV_PORT;
 app.use(cors());
@@ -51,5 +53,5 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log("Internal Server Error Database is Not Connected !!");
+    logger.error("Internal Server Error Database is Not Connected !!");
   });

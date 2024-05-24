@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User from "../models/authmodels/UserModel.js";
 import {
   GenerateToken,
@@ -14,9 +13,6 @@ export const checkIfUserExists = async (email) => {
 };
 export const addUser = async (userData) => {
   try {
-    // res.cookie("usertoken", JSON.stringify(token), {
-    //   expiry: COOKIE_EXPIRATION,
-    // });
     const hashedpwd = await GenerateHash(userData.password);
 
     const userCreated = await User.create({ ...userData, password: hashedpwd });
@@ -40,26 +36,18 @@ export const addUser = async (userData) => {
       };
     }
   } catch (error) {
+    logger.error("Error occurred", error);
     return { error };
   }
 };
 export const verifySignin = async (userdata) => {
   try {
-    console.log("Inside HandleDbOperation.js");
-
     let userFind = null;
     let findQuery = userdata.email
       ? { email: userdata.email }
       : { name: userdata.name };
 
     userFind = await User.findOne(findQuery);
-    console.log(
-      "userFind ",
-      userFind,
-      userFind.email,
-      userdata.email,
-      userFind.password
-    );
     if (userFind.email === userdata.email) {
       const resultComp = await CompareHash(
         userdata.password,
@@ -91,7 +79,7 @@ export const verifySignin = async (userdata) => {
       };
     }
   } catch (err) {
-    console.error("Error:", err);
+    logger.error("Error occurred", err);
     return { error: "Internal Server Error" };
   }
 };
