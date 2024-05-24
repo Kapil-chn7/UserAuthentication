@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Lens Corp Assignment - OpenAPI 3.0
+  description: |-
+    This is  an assignment for Lens Corp 
+    
+    Some useful links:
+    - [Code Repository](https://github.com/Kapil-chn7/UserAuthentication/tree/GIT_001)
+  contact:
+    email: kapilchn7@gmail.com
+  license:
+    name: Authentication
+  version: "1.0"
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: Authentication
+    description: Everything about Lens Corp Assignment
+    externalDocs:
+      description: Check Assignment
+      url: https://drive.google.com/file/d/1xQq4mD09Rced-k0qbC-9e6FVgp6RHBzm/view?usp=sharing
+paths:
+  /user/signup:
+    post:
+      tags:
+        - signup
+      summary: Add request to signup
+      description: Request to signup
+      operationId: signupId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/signup'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/signup'
+      responses:
+        '201':
+          description: Created Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signup'
+        '400':
+          description: Invalid input Bad Request
+        '409':
+          description: Already Exist resource
+  /user/signin:
+    post:
+      tags:
+        - signin
+      summary: Add request to signup
+      description: Request to signup
+      operationId: signinId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signin'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/signin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/signin'
+      responses:
+        '201':
+          description: Created Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signin'
+        '400':
+          description: Invalid input Bad Request
+        '409':
+          description: Already Exist resource
+  /user/logout:
+    post:
+      tags:
+        - logout
+      summary: request to logout
+      description: Request to logout
+      operationId: logoutId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/logout'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/logout'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/logout'
+      responses:
+        '200':
+          description: Created Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/logout'
+        '400':
+          description: Invalid input Bad Request
+
+
+components:
+  schemas:
+    signup:
+      type: object
+      properties:
+        email:
+          type: string
+          example: abc@gmail.com
+        name:
+          type: string
+          example: Sachin
+        password:
+          type: string
+          description: Its should be consist of small case, uppercase alphabets, numbers and a special symbol
+          example: Password@123
+    signin:
+      type: object
+      properties:
+        email:
+          type: string
+          example: abc@gmail.com
+        password:
+          type: string
+          description: Its should be consist of small case, uppercase alphabets, numbers and a special symbol
+          example: Password@123
+    logout:
+      type: object
+      nullable: true
+        
+  requestBodies:
+    signup:
+      description: Request Body For SignUp
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/signup'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/signup'

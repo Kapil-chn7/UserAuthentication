@@ -48,8 +48,7 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => {
-      logger.info("Starting Server");
-      console.log(` Data Base Connected & Server Listening on Port ${PORT}`);
+      logger.info(`Server Started ${PORT}`);
     });
   })
   .catch((err) => {
